@@ -32,14 +32,14 @@ public web3:any;
   }
   public fundsInfo(){
     this. _donationTracker.deployed().then(instance =>{
-        let ContractService = instance;
-        ContractService.TotalFunds.call().then(res =>{
-            this.TotalFunds = (res/1e18);
-          })
-        ContractService.RemainingFunds.call().then(res =>{
-            this.RemainingFunds = (res/1e18);
-          })
-      })
+      let ContractService = instance;
+      ContractService.TotalFunds.call().then(res =>{
+          this.TotalFunds = (res/1e18);
+        })
+      ContractService.RemainingFunds.call().then(res =>{
+          this.RemainingFunds = (res/1e18);
+        })
+    })
   }
   donateFunds(){
   	//alert(this.userAccount);
