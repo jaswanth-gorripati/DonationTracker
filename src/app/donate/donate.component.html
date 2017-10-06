@@ -1,0 +1,62 @@
+ <div class="inner cover animate-bottom1" [ngClass]="isLoading === false?'':'loadingBG'">
+
+ 	<div *ngIf="!isDonating">
+ 				<h1 class="cover-heading"> Track Your Donations On the GO...</h1>
+	    <br><br><p class="lead">Here You <i><b>can Donate funds </b></i>to organisations and keep a <i><b>track of</b></i> where those funds are <i><b>Spent</b></i></p>
+	    <p class="lead"><i><b>No Limitation</b></i> to Donate. We also track your Overall Donations Amount.<i><b> Every WEI is accounted Here</b></i></p>
+	    <p class="lead">
+	      <button  class="btn btn-lg btn-primary" (click)="isDonating = true">Donate Now !</button>
+	    </p>
+	    <div class="row">
+	    	<div class="col-sm-4 text-center info">
+	    		<header>Total Deposites</header>
+	    		<header>{{TotalFunds}} Ether</header>
+	    	</div>
+	    	<div class="col-sm-4 text-center info">
+	    		<header>Total Contributors</header>
+	    		<header>More than 1000+</header>
+	    	</div>
+	    	<div class="col-sm-4 text-center info">
+	    		<header>Remaining Funds</header>
+	    		<header>{{RemainingFunds}} Ether</header>
+	    	</div>
+	    </div>
+ 	</div>
+ 	<div *ngIf="isDonating" class="animate-bottom1	" [ngClass]="isLoading === false?'':'loadingBG'">
+	    <br><br><p class="lead">Donation amount transfers to the <i><b>Contract Not the Organisation.</b></i> So Organisations cannot use these funds with out accounting the <i><b>Proper Invoices.</b></i>
+	    <p class="lead">To spent the amount they need To place an invoice Where you have access to the invoices for which <i><b>YOU PAID </b></i></p><br>
+	    <p class="lead"><i><b>Funds will be transfered from your  current Metamask Account</b></i></p><br>
+ 		<form class="form-group form-group-lg form-inline" (ngSubmit)="donateFunds()" validate>
+ 			
+ 			<!--<input type="text" class="form-control input-lg col-sm-3 col-xs-3 col-md-3" name="Address" id="Address" [(ngModel)]="DonerAddress" required placeholder="Enter Your Address" #name="ngModel">-->
+ 			<div class="col-sm-3"></div>
+ 			<input type="Number" class="form-control col-sm-3 col-xs-3 col-md-3" name="DonationAmount" id="DonationAmount" [(ngModel)]="DonationAmount" required placeholder="Amount Of ether Donating" min="0.00000001">
+ 			
+ 			<input type="Number" class="form-control col-sm-3 col-xs-3 col-md-3" name="DonerPhno" id="DonerPhno" [(ngModel)]="DonerPhno" required placeholder="Your PhoneNumber"><br>
+ 			 <p class="lead">
+		      <button  type="submit" class="btn btn-lg btn-primary sub" [(disabled)]="!DonationAmount || !DonerPhno">Donate</button>
+		    </p>
+ 		</form>
+ 	</div>
+  </div>
+  <div [ngClass]="isLoading === false?'':'overlay'">
+  	<div [ngClass]="isLoading === false?'':'loadingFG'">
+ 	</div>
+ 	<div *ngIf="isLoading=== true" style="z-index: 3;margin:25% -5%;">
+ 		Loading...
+ 	</div>
+  </div>
+  <div *ngIf="GotDonateMsg" [ngClass]="GotDonateMsg === false?'':'overlay1'">
+  	<div *ngIf="GotDonateMsg" style="margin-left: 90%">
+  		<a (click)="GotDonateMsg= false"><span style="font-size: 60px;font-weight: bold;color: white;">&times;</span></a>
+  	</div>
+  	<div *ngIf="successDonateMsg" style="z-index: 3;margin:15%;" [ngClass]="successDonateMsg === true?'':'overlay'" >
+ 		<h3>Successfully Sent Funds </h3>
+ 		<p class="lead"> Thanks For Donating . You can view your Donations in <i><b>MyFunds</b></i> tab</p>
+ 	</div>
+ 	<div *ngIf="!successDonateMsg" style="z-index: 3;margin:15%" [ngClass]="successDonateMsg === false?'':'overlay'" >
+ 		<h3>Failed To Sent Funds..</h3>
+ 		<p class="lead"> Thanks For your interest. we dint received any Donation from you <i><b>Please Try Again</b></i></p>
+ 	</div>
+  </div>
+  

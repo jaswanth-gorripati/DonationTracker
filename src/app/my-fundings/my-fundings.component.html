@@ -1,0 +1,63 @@
+
+<div class="animate-bottom">
+	<h2 class="cover-heading" style="margin-top: 8%">Your Dashboard</h2>
+	    <br>
+	    <p class="lead" style="font-size: 16px">Address : <i>{{UserAccount}}</i></p>
+	<table class="table table-bordered" style="font-size: 20px" *ngIf="MyFundsInfo">
+		<tr>
+			<td>
+				Total Funds Deposited : {{MyFundsInfo[0]}} Ether
+			</td>
+			<td>
+				Total Funds Spent : {{MyFundsInfo[2]}} Ether
+			</td>
+			<td>
+				Remaining Funds : {{MyFundsInfo[1]}} Ether
+			</td>
+		</tr>
+	</table>
+	<p class="lead"> List Of all Purchases Made With Your Donation</p>
+	<div>
+		<table class="table table-hover ove">
+		<thead>
+			<tr>
+				<td>
+					<b>S.no</b>
+				</td>
+				<td>
+					<b>Spent On</b>
+				</td>
+				<td>
+					<b>Spent BlockTime</b>
+				</td>
+				<td>
+					<b>Spent Amount</b>
+				</td>
+				<td>
+					<b>Is In collaboration/Amount</b>
+				</td>
+			</tr>
+		</thead>
+		<tbody >
+			<tr *ngFor="let spent of Spendings;let i =index " >
+				<td>
+					{{i}}
+				</td>
+				<td>
+					{{spent.spentOn}}
+				</td>
+				<td>
+					{{spent.time}}
+				</td>
+				<td>
+					{{spent.amount}}
+				</td>
+				<td>
+					{{spent.collAmount}}
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+	
+</div>

@@ -1,0 +1,31 @@
+<div class="site-wrapper">
+
+  <div class="site-wrapper-inner">
+
+    <div class="cover-container">
+
+      <div class="masthead clearfix nav-fixed">
+        <div class="inner">
+          <h3 class="masthead-brand">Donation Tracker</h3>
+          <nav class="nav nav-masthead">
+            <a routerLink='home' routerLinkActive='active'>Home</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a routerLink='myFundings' >MyFunds</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a routerLink='ReqPayment' *ngIf="IsOwner">Request Payment</a>
+          </nav>
+        </div>
+      </div>
+      <router-outlet></router-outlet>
+
+      <div class="mastfoot">
+        <div class="inner">
+          
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
