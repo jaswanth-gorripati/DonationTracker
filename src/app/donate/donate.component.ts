@@ -24,11 +24,15 @@ public web3:any;
   ngOnInit() {
   	this._web3.getWeb3().then(res => {
   		this.web3 = res;
-  		this.userAccount = this.web3.eth.accounts[0];
   		console.log(this.userAccount);
       this._donationTracker.setProvider(this.web3.currentProvider);
-      this.fundsInfo();
   	})
+    this._web3.getUserAccount().then(res => {
+      if(res != undefined){
+         this.userAccount = res;
+         this.fundsInfo();
+        }
+    })
   }
   public fundsInfo(){
     this. _donationTracker.deployed().then(instance =>{
@@ -42,61 +46,54 @@ public web3:any;
     })
   }
   donateFunds(){
-  	//alert(this.userAccount);
-  	
-  	/*setTimeout(() => {
-  		this.isLoading = false;
-  		this.GotDonateMsg = true;
-		this.successDonateMsg = true;
-		setTimeout(() =>{
-	  		this.GotDonateMsg = false;
-			this.successDonateMsg = false;
-	  	},5000);
-  	},2000);
-  	this.DonationAmount = "";
-  	this.DonerPhno = "";
-  }*/
-   this.isLoading = true;
-  this._web3.isFundsTransfered(this.userAccount,this.DonationAmount);
-  setTimeout(() =>{
-  this._web3.getIsTransfered().then(res => {
-    console.log(res)
-      if (res == true){
-            setTimeout(() =>{
-              this.isLoading = false;
-              console.log(this.isLoading);
-              this.GotDonateMsg = true;
-              this.successDonateMsg = true;
-              console.log(this.GotDonateMsg,this.successDonateMsg);
-              //this.fundsInfo();
-              setTimeout(() =>{
-                this.GotDonateMsg = false;
-                this.successDonateMsg = false;
-                console.log(this.isLoading);
-                this.DonationAmount = "";
-                this.DonerPhno = "";
-                this._web3.setIsTransferd()
-              },5000);
-            },2000);
-          }else{
-            setTimeout(() =>{
-              this.isLoading = false;
-              this.GotDonateMsg = true;
-              this.successDonateMsg = false;
-              setTimeout(() =>{
-                this.GotDonateMsg = false;
-                this.successDonateMsg = false;
-                this.DonationAmount = "";
-                this.DonerPhno = "";
-                this._web3.setIsTransferd()
-              },5000);
-             },1000); 
-          }
-    
+    this.isLoading = true;
+    this._web3.isFundsTransfered(this.userAccount,this.DonationAmount);
+    this.checkIsMined();
+  }
+  checkIsMined(){
+    let resp;
+    this._web3.getIsTransfered().then(res => {
+      resp = res;
     })
-},1500)
-       
-          
+     setTimeout(()=>{
+       if(resp === undefined){
+         this.checkIsMined();
+       }else{
+         
+            console.log(resp)
+              if (resp == true){
+                setTimeout(() =>{
+                  this.isLoading = false;
+                  console.log(this.isLoading);
+                  this.GotDonateMsg = true;
+                  this.successDonateMsg = true;
+                  console.log(this.GotDonateMsg,this.successDonateMsg);
+                  //this.fundsInfo();
+                  setTimeout(() =>{
+                    this.GotDonateMsg = false;
+                    this.successDonateMsg = false;
+                    console.log(this.isLoading);
+                    this.DonationAmount = "";
+                    this.DonerPhno = "";
+                    this._web3.setIsTransferd()
+                  },2000);
+                },1000);
+              }else{
+                setTimeout(() =>{
+                  this.isLoading = false;
+                  this.GotDonateMsg = true;
+                  this.successDonateMsg = false;
+                  setTimeout(() =>{
+                    this.GotDonateMsg = false;
+                    this.successDonateMsg = false;
+                    this.DonationAmount = "";
+                    this.DonerPhno = "";
+                    this._web3.setIsTransferd()
+                  },2000);
+                 },1000); 
+              }   
+       }
+   },1000)
   }
   public PayFunds():any{
     this.isLoading = true;

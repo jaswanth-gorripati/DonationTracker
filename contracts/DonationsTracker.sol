@@ -77,7 +77,7 @@ contract DonationsTracker is Ownership{
     mapping (address => Spendings[]) public MyFundsSpending;
     
 
-    event FundsSpent(address FromFunder,uint Amount,string ForPurchase,uint Date);
+    event FundsSpentEvent(address indexed FromFunder,uint indexed invoiceNo,uint Amount,string ForPurchase,uint Date,uint InColoborationAmount);
     function RequestToPay(uint invoiceNo,uint amountRequired,address toPayForAddress,string RequiredFor) onlyOwner public returns(bool IsPaid,string message,uint bal){
         uint amount = amountRequired * 1 ether;
         if(this.balance < amount){
@@ -94,7 +94,7 @@ contract DonationsTracker is Ownership{
                 MyFunds[PayingAddress[i].From].RemainingFunds -= PayingAddress[i].Amount;
                 MyFunds[PayingAddress[i].From].SpentAmount += PayingAddress[i].Amount;
                 MyFundsSpending[PayingAddress[i].From].push(Spendings(now,PayingAddress[i].Amount,amount,invoice,toPayForAddress,RequiredFor));
-                FundsSpent(PayingAddress[i].From,PayingAddress[i].Amount,RequiredFor,now);
+                FundsSpentEvent(PayingAddress[i].From,invoiceNo,PayingAddress[i].Amount,RequiredFor,now,amount);
                 delete PayingAddress[i];
             }
             toPayForAddress.transfer(amount);

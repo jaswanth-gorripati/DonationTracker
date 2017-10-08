@@ -7,14 +7,29 @@
       <div class="masthead clearfix nav-fixed">
         <div class="inner">
           <h3 class="masthead-brand">Donation Tracker</h3>
-          <nav class="nav nav-masthead">
+          <nav class="nav nav-masthead" *ngIf="UserAccount!=undefined">
             <a routerLink='home' routerLinkActive='active'>Home</a>&nbsp;&nbsp;&nbsp;&nbsp;
             <a routerLink='myFundings' >MyFunds</a>&nbsp;&nbsp;&nbsp;&nbsp;
             <a routerLink='ReqPayment' *ngIf="IsOwner">Request Payment</a>
           </nav>
         </div>
       </div>
-      <router-outlet></router-outlet>
+      <div style="margin-top: 100px" *ngIf="UserAccount!=undefined;else login_div " >
+           <router-outlet></router-outlet>
+      </div>
+      <ng-template #login_div style="margin-top: 100px">
+        <div>
+          <p class="lead"> You Need to <i><b> LOGIN </b></i> first in order to Donate </p>
+          <div>
+            <form class="form form-inline">
+              <div class="col-sm-2"></div>
+              <input type="text" class="form-control col-sm-6" name="userAddress" id="userAddress" [(ngModel)]="userAddress" placeholder="Enter Your Address Here">&nbsp;&nbsp;&nbsp;&nbsp;
+              <button class="btn btn-primary-lg" (click)="setUser(userAddress)" > Login </button>
+            </form>
+          </div>
+        </div>
+      </ng-template>
+     
 
       <div class="mastfoot">
         <div class="inner">

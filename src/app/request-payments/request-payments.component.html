@@ -4,12 +4,12 @@
 	    <p class="lead">Fill in the details below to get the <i><b>Contract Pay For Your Bills </b></i></p><br>
 	   	<div class="row" style="margin-left: 10%">
 	   	<div class="col-sm-6">
-	   		<form class="form-group form-group-lg " (ngSubmit)="RequestPayment()" validate>
+	   		<form class="form-group form-group-lg ">
  				<fieldset>
 	 				<h5 style="margin-left: -30%">Merchents Details :</h5>
-	 				<input type="text" class="form-control input-lg col-sm-10 col-xs-10 col-md-10" name="MerchentAddress" id="MerchentAddress" [(ngModel)]="MerchentAddress" required placeholder="Enter Merchant Address" ><br>
-		 			<input type="Number" class="form-control col-sm-10 col-xs-10 col-md-10" name="ReqAmount" id="ReqAmount" [(ngModel)]="ReqAmount" required placeholder="Purchasing Amount in ether" min="0.00000001"><br>
-		 			<input type="Number" class="form-control col-sm-10 col-xs-10 col-md-10" name="invoiceRefNo" id="invoiceRefNo" [(ngModel)]="invoiceRefNo" required placeholder="Enter invoice refNo" min="1"><br>
+	 				<input type="text" class="form-control input-lg col-sm-10 col-xs-10 col-md-10" name="MerchentAddress" id="MerchentAddress" [(ngModel)]="MerchentAddress" required placeholder="Enter Merchant Address"  [(disabled)] = "isLoading"><br>
+		 			<input type="Number" class="form-control col-sm-10 col-xs-10 col-md-10" name="ReqAmount" id="ReqAmount" [(ngModel)]="ReqAmount" required placeholder="Purchasing Amount in ether" min="0.00000001"  [(disabled)] = "isLoading"><br>
+		 			<input type="Number" class="form-control col-sm-10 col-xs-10 col-md-10" name="invoiceRefNo" id="invoiceRefNo" [(ngModel)]="invoiceRefNo" required placeholder="Enter invoice refNo" min="1"  [(disabled)] = "isLoading"><br>
 			 	</fieldset>
 			</form>
 	   	</div>
@@ -17,15 +17,16 @@
 	   		<form class="form-group form-group-lg " (ngSubmit)="RequestPayment()" validate>
  				<fieldset>
 	 				<h5 style="margin-left: -30%">Product Details :</h5>
-	 				<input type="text" class="form-control input-lg col-sm-10 col-xs-10 col-md-10" name="ProductName" id="ProductName" [(ngModel)]="ProductName" required placeholder="Buying Product Name" ><br>
-		 			<input type="Number" class="form-control col-sm-10 col-xs-10 col-md-10" name="Quantity" id="Quantity" [(ngModel)]="Quantity" required placeholder="Quantity Purchased"><br>
+	 				<input type="text" class="form-control input-lg col-sm-10 col-xs-10 col-md-10" name="ProductName" id="ProductName" [(ngModel)]="ProductName" required placeholder="Buying Product Name"  [(disabled)] = "isLoading"><br>
+		 			<input type="Number" class="form-control col-sm-10 col-xs-10 col-md-10" name="Quantity" id="Quantity" [(ngModel)]="Quantity" required placeholder="Quantity Purchased"  [(disabled)] = "isLoading"><br>
 			 	</fieldset>
 			</form>
 	   	</div>
 	 </div>
 	 <div style="clear: both;"></div>
 	 <p class="lead" style="margin-left: 7%"><br>
-		     	<button  type="submit" class="btn btn-lg btn-primary sub" [(disabled)]="!MerchentAddress || !invoiceRefNo || !ProductName  || !Quantity || !ReqAmount">Donate</button>
+		     	<button *ngIf="!isLoading" type="submit" class="btn btn-lg btn-primary sub" [(disabled)]="!MerchentAddress || !invoiceRefNo || !ProductName  || !Quantity || !ReqAmount" (click)="RequestPayment()">Request PayMent </button>
+ 			<button *ngIf="isLoading" class="btn btn-lg btn-primary text-center " style="width: 280px;height: 50px"> <div  [ngClass]="isLoading === false?'':'loadingFG'"></div> <div style="margin-top: -15%;margin-left: 10% !important; ">Processing Request . . .</div></button>
 		    </p>
  	</div>
 </div>

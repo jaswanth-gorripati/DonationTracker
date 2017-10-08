@@ -1,4 +1,3 @@
-
 <div class="animate-bottom">
 	<h2 class="cover-heading" style="margin-top: 8%">Your Dashboard</h2>
 	    <br>
@@ -28,6 +27,9 @@
 					<b>Spent On</b>
 				</td>
 				<td>
+					<b>Invoice Number</b>
+				</td>
+				<td>
 					<b>Spent BlockTime</b>
 				</td>
 				<td>
@@ -39,25 +41,34 @@
 			</tr>
 		</thead>
 		<tbody >
-			<tr *ngFor="let spent of Spendings;let i =index " >
+			<tr *ngFor="let spent of Spendings;let i =index " class="animate-bottom" [ngClass]="isLoading === false?'':'loadingBG'">
 				<td>
-					{{i}}
+					{{i+1}}
 				</td>
 				<td>
-					{{spent.spentOn}}
+					{{spent.For}}
 				</td>
 				<td>
-					{{spent.time}}
+					{{spent.invoice}}
 				</td>
 				<td>
-					{{spent.amount}}
+					{{spent.Date}}
 				</td>
 				<td>
-					{{spent.collAmount}}
+					{{spent.Amount/1e18}}
+				</td>
+				<td>
+					{{spent.Incollaboration/1e18}}
 				</td>
 			</tr>
 		</tbody>
 	</table>
-	</div>
-	
+	<div [ngClass]="isLoading === false?'':'overlay'">
+  	<div [ngClass]="isLoading === false?'':'loadingFG'">
+ 	</div>
+ 	<div *ngIf="isLoading=== true" style="z-index: 3;margin:25%;font-size: 19px">
+ 		Loading <span style="font-size: 20px;">. . .</span>
+ 	</div>
+  </div>
+	</div>	
 </div>

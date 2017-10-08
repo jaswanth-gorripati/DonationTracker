@@ -19,10 +19,13 @@ export class AppComponent {
    ngOnInit() {
     this._web3.getWeb3().then(res => {
       this.web3 = res;
-      this.UserAccount = this.web3.eth.accounts[0];
       this._donationTracker.setProvider(this.web3.currentProvider);
-      this.isOwnerfn();
-      console.log(this.UserAccount);
+    })
+    this._web3.getUserAccount().then(res => {
+      if(res != undefined){
+         this.UserAccount = this.web3.eth.accounts[0];
+         this.isOwnerfn();
+      }
     })
   }
   isOwnerfn(){
@@ -33,9 +36,24 @@ export class AppComponent {
           if(res === this.UserAccount){
           	this.IsOwner =true;
           	console.log("Can Request Payments")
+          }else{
+            console.log("not a owner");
           }
         })
     })
+  }
+  setUser(user){
+    alert(user)
+    this._web3.setUserAccount(user);
+    setTimeout(()=>{
+      this._web3.getUserAccount().then(res=>{
+        alert(res);
+        if(res != undefined){
+          this.UserAccount = res;
+          this.isOwnerfn();
+        }
+      })
+    },2000)
   }
 
 }
